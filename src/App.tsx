@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './style.css';
 
-import { Thunder } from './weather/Thunder';
 import { Rain } from './weather/Rain';
+import { Thunder } from './weather/Thunder';
 
 import { currentWeather, hourly, dailyForecast } from './data';
 
-export default function App() {
+export const App = () => {
   const [current, setCurrent] = useState(currentWeather);
   const [forecast, setForecast] = useState(hourly);
   const [daily, setDaily] = useState(dailyForecast);
@@ -37,6 +37,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const locationKey = "";
     async function getWeather() {
       const apiKey = '';
       const apiUrl = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${apiKey}`;
@@ -56,21 +57,21 @@ export default function App() {
         <div className="location">{current.location.name}</div>
         <div className="temp">{current.temp}</div>
         <div className="conditions">
-          {current.cond == 0
+          {current.cond === 0
             ? 'Sunny'
-            : current.cond == 1
-            ? 'Partly Cloudy'
-            : current.cond == 2
-            ? 'Cloudy'
-            : current.cond == 3
-            ? 'Light Rain'
-            : current.cond == 4
-            ? 'Rain'
-            : current.cond == 5
-            ? 'Heavy Rain'
-            : current.cond == 6
-            ? 'Thunder'
-            : ''}
+            : current.cond === 1
+              ? 'Partly Cloudy'
+              : current.cond === 2
+                ? 'Cloudy'
+                : current.cond === 3
+                  ? 'Light Rain'
+                  : current.cond === 4
+                    ? 'Rain'
+                    : current.cond === 5
+                      ? 'Heavy Rain'
+                      : current.cond === 6
+                        ? 'Thunder'
+                        : ''}
           <br />
           H:{current.range.max} L:{current.range.min}
         </div>
@@ -81,7 +82,7 @@ export default function App() {
         <div className="scroller">
           <div className="forecast-list">
             {forecast.map(({ datetime, temperature }) => (
-              <div className="forecast-item">
+              <div key={self.crypto.randomUUID()} className="forecast-item">
                 <span>{datetime}</span>
                 <span>
                   <Thunder />
@@ -99,11 +100,11 @@ export default function App() {
           {daily.map(
             ({
               datetime,
-              temp,
+              // temp,
               range: { min, max },
-              periodRange: { min: lowest, max: highest },
+              // periodRange: { min: lowest, max: highest },
             }) => (
-              <div className="daily-row">
+              <div key={self.crypto.randomUUID()} className="daily-row">
                 <div className="daily-time">{datetime}</div>
 
                 <div className="daily-conditions">
@@ -126,4 +127,4 @@ export default function App() {
       </div>
     </div>
   );
-}
+};
