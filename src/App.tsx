@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import './style.css';
 
-import { Thunder } from './weather/Thunder';
 import { Rain } from './weather/Rain';
+import { Thunder } from './weather/Thunder';
 
 import { currentWeather, hourly, dailyForecast } from './data';
 
-export default function App() {
+export const App = () => {
   const [current, setCurrent] = useState(currentWeather);
   const [forecast, setForecast] = useState(hourly);
   const [daily, setDaily] = useState(dailyForecast);
@@ -127,4 +127,4 @@ export default function App() {
       </div>
     </div>
   );
-}
+};
