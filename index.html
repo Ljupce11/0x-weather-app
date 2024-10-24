@@ -11,8 +11,10 @@
     script-src 'self' https://cdnjs.cloudflare.com;
     style-src 'self' 'unsafe-inline';
     img-src 'self' data:;
-    connect-src 'self' https://nominatim.openstreetmap.org https://api.open-meteo.com ;" />
+    connect-src 'self' https://nominatim.openstreetmap.org https://api.open-meteo.com;" />
   <title>0+x Weather App</title>
+  <link rel="preconnect" href="https://nominatim.openstreetmap.org">
+  <link rel="preconnect" href="https://api.open-meteo.com">
 </head>
 
 <body>

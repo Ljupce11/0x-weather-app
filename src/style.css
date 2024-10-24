@@ -25,6 +25,7 @@ body {
 }
 
 #root > div {
+  height: 100%;
   min-width: 320px;
   max-width: 460px;
   padding: 10px;
@@ -215,8 +216,11 @@ body {
 
 /* Spinner CSS */
 div.spinner-wrapper {
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 div.spinner {
