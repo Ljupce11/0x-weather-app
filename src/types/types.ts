@@ -1,8 +1,13 @@
+export type LocationData = {
+  address: {
+    city?: string;
+  };
+} | null;
+
 export type CurrentWeather = {
   location: {
     latitude: number;
     longitude: number;
-    name: string;
   };
   temp: string;
   cond: number;
