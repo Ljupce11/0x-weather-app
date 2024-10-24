@@ -1,17 +1,10 @@
 import type { WeatherData } from "../../types/types";
 
-type LocationNameData = {
-  address: {
-    city?: string;
-  }
-}
-
-export const returnUpdatedCurrentWeatherData = (latitude: number, longitude: number, locationNameData: LocationNameData, weatherData: WeatherData) => {
+export const returnUpdatedCurrentWeatherData = (latitude: number, longitude: number, weatherData: WeatherData) => {
   return {
     location: {
       latitude,
-      longitude,
-      name: locationNameData.address.city || "Current location"
+      longitude
     },
     temp: `${Math.round(weatherData.current.temperature_2m).toString()}°`,
     cond: weatherData.current.weathercode,

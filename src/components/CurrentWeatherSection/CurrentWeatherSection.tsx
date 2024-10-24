@@ -1,20 +1,21 @@
 import { Fragment } from "react/jsx-runtime";
 
 import { ErrorMessage } from "../shared/ErrorMessage";
-import type { CurrentWeather } from "../../types/types";
+import type { CurrentWeather, LocationData } from "../../types/types";
 import { getWeatherDescriptions } from "../../helpers/getWeatherDescriptions/getWeatherDescriptions";
 
 type Props = {
   currentWeather: CurrentWeather;
+  locationData: LocationData;
 }
 
-export const CurrentWeatherSection = ({ currentWeather }: Props) => {
+export const CurrentWeatherSection = ({ currentWeather, locationData }: Props) => {
   return (
     <div className="header">
       {
         currentWeather ?
           <Fragment>
-            <div className="location">{currentWeather.location.name}</div>
+            <div className="location">{locationData?.address?.city || "Current location"}</div>
             <div className="temp">{currentWeather.temp}</div>
             <div className="conditions">
               {getWeatherDescriptions([currentWeather.cond])}
