@@ -34,3 +34,20 @@ export type Forecast = {
   hourly: HourlyForecast[];
   daily: DailyForecast[];
 } | null;
+
+export type WeatherData = {
+  current: {
+    temperature_2m: number;
+    weathercode: number;
+  },
+  hourly: {
+    time: string[];
+    temperature_2m: number[];
+    weathercode: number[];
+  },
+  daily: {
+    time: string[];
+    temperature_2m_min: number[];
+    temperature_2m_max: number[];
+  }
+}
