@@ -11,7 +11,6 @@ export const getWeatherURL = (coords: { latitude: number; longitude: number } | 
 export const fetcher = async <T = any>(url: string): Promise<T> => {
   const res = await fetch(url);
 
-  console.log('HELLO');
   if (!res.ok) {
 
     const error: any = new Error('An error occurred while fetching the data.');
