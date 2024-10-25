@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export const getLocationURL = (coords: { latitude: number; longitude: number } | null, isOffline: boolean) =>
   coords && !isOffline
     ? `https://nominatim.openstreetmap.org/reverse?format=json&lat=${coords.latitude}&lon=${coords.longitude}`
@@ -15,6 +17,7 @@ export const fetcher = async (url: string) => {
     const error = new Error('An error occurred while fetching the data.') as Error & { status?: number; info?: { message: string } };
     error.status = res.status;
     error.info = { message: 'An error occurred while fetching the data.' };
+    toast.error(error.info.message);
     throw error;
   }
 

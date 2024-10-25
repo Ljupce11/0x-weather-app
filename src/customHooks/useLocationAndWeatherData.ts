@@ -6,9 +6,14 @@ import { fetcher, getLocationURL, getWeatherURL } from "../lib/fetcher";
 import { returnUpdatedForecastData } from "../helpers/returnUpdatedForecastData/returnUpdatedForecastData";
 import { returnUpdatedCurrentWeatherData } from "../helpers/returnUpdatedCurrentWeatherData/returnUpdatedCurrentWeatherData";
 
+const SWR_OPTIONS = {
+  shouldRetryOnError: false,
+  revalidateOnFocus: false
+}
+
 export const useLocationAndWeatherData = (locationCoords: { latitude: number, longitude: number } | null, isOffline: boolean) => {
-  const { data: locationData } = useSWR<LocationData>(getLocationURL(locationCoords, isOffline), fetcher);
-  const { data: weatherData, error: weatherError, isLoading } = useSWR<WeatherData>(getWeatherURL(locationCoords, isOffline), fetcher);
+  const { data: locationData } = useSWR<LocationData>(getLocationURL(locationCoords, isOffline), fetcher, SWR_OPTIONS);
+  const { data: weatherData, isLoading } = useSWR<WeatherData>(getWeatherURL(locationCoords, isOffline), fetcher, SWR_OPTIONS);
 
   const isLoadingWeather = isOffline ? false : isLoading;
 
@@ -36,6 +41,5 @@ export const useLocationAndWeatherData = (locationCoords: { latitude: number, lo
     locationData,
     weatherData: modifiedWeatherData,
     isLoadingWeather: (!modifiedWeatherData && !weatherError) || isLoadingWeather,
-    weatherError: weatherError
   }
 }

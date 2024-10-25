@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { Toaster } from 'react-hot-toast';
 import './style.css';
 
 import { useOnlineStatus } from './customHooks/useOnlineStatus';
@@ -11,7 +12,7 @@ import { CurrentWeatherSection } from './components/CurrentWeatherSection/Curren
 export const App = () => {
   const isOffline = useOnlineStatus();
   const locationCoords = useLocationCoordinates();
-  const { locationData, weatherData, isLoadingWeather, weatherError } = useLocationAndWeatherData(locationCoords, isOffline);
+  const { locationData, weatherData, isLoadingWeather } = useLocationAndWeatherData(locationCoords, isOffline);
 
   return (
     <div>
@@ -27,6 +28,9 @@ export const App = () => {
             <DailyForecastSection forecast={weatherData?.forecast} />
           </Fragment>
       }
+      <Toaster
+        position="bottom-center"
+      />
     </div>
   );
 };
