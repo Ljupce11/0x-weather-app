@@ -5,7 +5,7 @@ import { getBackgroundColor } from "../helpers/getCurrentRangeAndColor/getCurren
 
 const GEOLOCATION_OPTIONS = {
   enableHighAccuracy: true,
-  timeout: 10000,
+  timeout: 5000,
   maximumAge: 0
 }
 
@@ -17,7 +17,7 @@ export const useLocationCoordinates = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const { latitude, longitude } = position.coords;
       setLocationCoords({ latitude, longitude });
-    }, (error) => handleLocationError(error), GEOLOCATION_OPTIONS);
+    }, (error) => handleLocationError(error, setLocationCoords), GEOLOCATION_OPTIONS);
     // Set the background color 
     const color = getBackgroundColor();
     if (color) {

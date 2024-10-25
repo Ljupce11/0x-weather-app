@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import './style.css';
 
+import { useOnlineStatus } from './customHooks/useOnlineStatus';
 import { useLocationCoordinates } from './customHooks/useLocationCoordinates';
 import { useLocationAndWeatherData } from './customHooks/useLocationAndWeatherData';
 import { DailyForecastSection } from './components/DailyForecastSection/DailyForecastSection';
@@ -8,8 +9,9 @@ import { HourlyForecastSection } from './components/HourlyForecastSection/Hourly
 import { CurrentWeatherSection } from './components/CurrentWeatherSection/CurrentWeatherSection';
 
 export const App = () => {
+  const isOffline = useOnlineStatus();
   const locationCoords = useLocationCoordinates();
-  const { locationData, /* locationError, weatherError, */ isLoadingWeather, modifiedWeatherData, } = useLocationAndWeatherData(locationCoords);
+  const { locationData, weatherData, isLoadingWeather, weatherError } = useLocationAndWeatherData(locationCoords, isOffline);
 
   return (
     <div>
@@ -20,9 +22,9 @@ export const App = () => {
           </div>
           :
           <Fragment>
-            <CurrentWeatherSection currentWeather={modifiedWeatherData?.currentWeather} locationData={locationData} />
-            <HourlyForecastSection forecast={modifiedWeatherData?.forecast} />
-            <DailyForecastSection forecast={modifiedWeatherData?.forecast} />
+            <CurrentWeatherSection currentWeather={weatherData?.currentWeather} locationData={locationData} />
+            <HourlyForecastSection forecast={weatherData?.forecast} />
+            <DailyForecastSection forecast={weatherData?.forecast} />
           </Fragment>
       }
     </div>
