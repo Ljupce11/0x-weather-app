@@ -1,10 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export const useOnlineStatus = () => {
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
-  const handleOffline = useCallback(() => setIsOffline(true), []);
-  const handleOnline = useCallback(() => setIsOffline(false), []);
+  const handleOffline = useCallback(() => {
+    setIsOffline(true);
+    toast.error('No internet connection.');
+  }, []);
+  const handleOnline = useCallback(() => {
+    setIsOffline(false);
+    toast.success("You're back online.");
+  }, []);
 
   useEffect(() => {
     window.addEventListener('offline', handleOffline);

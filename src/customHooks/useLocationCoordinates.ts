@@ -5,7 +5,7 @@ import { getBackgroundColor } from "../helpers/getCurrentRangeAndColor/getCurren
 
 const GEOLOCATION_OPTIONS = {
   enableHighAccuracy: true,
-  timeout: 5000,
+  // timeout: 5000,
   maximumAge: 0
 }
 
