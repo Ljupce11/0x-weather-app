@@ -10,7 +10,7 @@ export const useOnlineStatus = () => {
   }, []);
   const handleOnline = useCallback(() => {
     setIsOffline(false);
-    toast.success("You're back online.");
+    toast.success("You're back online.", { duration: 4000 });
   }, []);
 
   useEffect(() => {
