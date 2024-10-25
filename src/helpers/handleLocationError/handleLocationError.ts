@@ -1,4 +1,10 @@
-export const handleLocationError = (error: GeolocationPositionError) => {
+import type { LocationCoordinates } from "../../types/types";
+
+export const handleLocationError = (error: GeolocationPositionError, setLocationCoords: (data: LocationCoordinates) => void) => {
+  const cachedData = JSON.parse(localStorage.getItem('data') || '{}');
+  if (cachedData.latitude && cachedData.longitude) {
+    setLocationCoords({ latitude: cachedData.latitude, longitude: cachedData.longitude })
+  }
   switch (error.code) {
     case error.PERMISSION_DENIED:
       alert("User denied the request for Geolocation.");

@@ -6,24 +6,36 @@ import { fetcher, getLocationURL, getWeatherURL } from "../lib/fetcher";
 import { returnUpdatedForecastData } from "../helpers/returnUpdatedForecastData/returnUpdatedForecastData";
 import { returnUpdatedCurrentWeatherData } from "../helpers/returnUpdatedCurrentWeatherData/returnUpdatedCurrentWeatherData";
 
-export const useLocationAndWeatherData = (locationCoords: { latitude: number, longitude: number } | null) => {
-  const { data: locationData, error: locationError } = useSWR<LocationData>(getLocationURL(locationCoords), fetcher);
+export const useLocationAndWeatherData = (locationCoords: { latitude: number, longitude: number } | null, isOffline: boolean) => {
+  const { data: locationData } = useSWR<LocationData>(getLocationURL(locationCoords, isOffline), fetcher);
+  const { data: weatherData, error: weatherError, isLoading } = useSWR<WeatherData>(getWeatherURL(locationCoords, isOffline), fetcher);
 
-  const { data: weatherData, error: weatherError, isLoading: isLoadingWeather } = useSWR<WeatherData>(getWeatherURL(locationCoords), fetcher);
+  const isLoadingWeather = isOffline ? false : isLoading;
+
   const modifiedWeatherData = useMemo(() => {
-    if (!weatherData) return null;
-    if (!locationCoords) return null;
-    return {
-      currentWeather: returnUpdatedCurrentWeatherData(locationCoords?.latitude, locationCoords?.longitude, weatherData),
-      forecast: returnUpdatedForecastData(weatherData)
-    };
-  }, [weatherData, locationCoords]);
+    if (isOffline) {
+      const cachedData = JSON.parse(localStorage.getItem('data') || '{}');
+      if (cachedData) {
+        return {
+          currentWeather: returnUpdatedCurrentWeatherData(cachedData?.latitude, cachedData?.longitude, cachedData),
+          forecast: returnUpdatedForecastData(cachedData)
+        };
+      }
+      return null;
+    }
+    if (weatherData && locationCoords) {
+      return {
+        currentWeather: returnUpdatedCurrentWeatherData(locationCoords?.latitude, locationCoords?.longitude, weatherData),
+        forecast: returnUpdatedForecastData(weatherData)
+      };
+    }
+    return null;
+  }, [weatherData, locationCoords, isOffline]);
 
   return {
     locationData,
-    locationError,
-    weatherError,
-    isLoadingWeather: (!weatherData && !weatherError) || isLoadingWeather,
-    modifiedWeatherData
+    weatherData: modifiedWeatherData,
+    isLoadingWeather: (!modifiedWeatherData && !weatherError) || isLoadingWeather,
+    weatherError: weatherError
   }
 }
