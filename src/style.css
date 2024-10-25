@@ -1,11 +1,23 @@
+/* Global Styles */
 * {
   box-sizing: border-box;
 }
 
-html {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+:root {
+  --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --bg-gradient: linear-gradient(to bottom, #011e33, #625a72);
+  --text-color: white;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --border-color: rgba(255, 255, 255, 0.03);
+  --spinner-border-color: rgba(255, 255, 255, 0.3);
+  --spinner-border-top-color: #fff;
+  --probability-color: #81cffa;
+  --range-bg: rgba(0, 0, 0, 0.15);
+  --range-gradient: linear-gradient(to right, #96d0a7, #ef8734);
+}
 
+html {
+  font-family: var(--font-family);
   font-size: 10px;
 }
 
@@ -19,9 +31,8 @@ body {
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-
-  background: linear-gradient(to bottom, #011e33, #625a72);
-  color: white;
+  background: var(--bg-gradient);
+  color: var(--text-color);
 }
 
 #root > div {
@@ -31,6 +42,7 @@ body {
   padding: 10px;
 }
 
+/* Typography */
 .header {
   font-weight: 400;
   text-align: center;
@@ -51,19 +63,26 @@ body {
   font-size: 24px;
 }
 
-.forecast {
+/* Card Styles */
+.forecast,
+.daily {
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 15px 15px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 15px;
 }
 
-.forecast-title {
+.forecast-title,
+.daily-title {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   font-size: 0.8em;
   letter-spacing: 0.05em;
   padding-bottom: 8px;
   font-weight: 400;
+}
+
+.daily-title {
+  font-size: 1.3rem;
 }
 
 .scroller {
@@ -77,7 +96,6 @@ body {
 
 .forecast-item {
   width: 45px;
-  min-width: 45px;
   text-align: center;
   margin: 0 10px;
   padding: 10px 0 0;
@@ -99,36 +117,13 @@ body {
   margin: 15px 0 0;
 }
 
-.daily {
-  margin: 10px 0 0 0;
-  border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  padding: 15px 15px;
-}
-
-.daily-title,
-.daily-row {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.daily-title {
-  font-size: 1.3rem;
-  letter-spacing: 0.05em;
-  padding-bottom: 8px;
-  font-weight: 400;
-}
-
+/* Daily Row Styles */
 .daily-row {
   padding: 5px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 2rem;
-}
-
-.daily-row:last-child {
-  border-bottom: 0;
 }
 
 .daily-range {
@@ -162,38 +157,33 @@ body {
   max-width: 20px;
 }
 
+/* Probability Styles */
 .probability {
   display: block;
   font-size: 12px;
   line-height: 0.8;
   margin: -5px 0 5px;
-  color: #81cffa;
+  color: var(--probability-color);
 }
 
-/* Shows the range of lowest and highest 
-   temperatures of the 10-day period */
+/* Temperature Range Styles */
 .range {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.15);
+  background-color: var(--range-bg);
   height: 4px;
   border-radius: 5px;
   position: relative;
 }
 
-/* Shows the range of lowest and highest 
-   temperatures of each day in comparison 
-   to the range of the whole period */
 .range-meter {
   --left: 0%;
   --right: 0%;
-
   min-width: 30%;
   position: absolute;
   left: var(--left);
   right: var(--right);
   top: 0;
   bottom: 0;
-
   border-radius: 5px;
   overflow: hidden;
 }
@@ -202,20 +192,18 @@ body {
   content: '';
   display: block;
   position: absolute;
-
   top: 0;
   bottom: 0;
   left: calc(-1 * var(--left));
   right: calc(-1 * var(--right));
-
-  background: linear-gradient(to right, #96d0a7, #ef8734);
+  background: var(--range-gradient);
   background-size: 80px 100%;
   background-position: center;
   border-radius: 5px;
 }
 
-/* Spinner CSS */
-div.spinner-wrapper {
+/* Spinner Styles */
+.spinner-wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -223,34 +211,32 @@ div.spinner-wrapper {
   align-items: center;
 }
 
-div.spinner {
+.spinner {
   display: inline-block;
   width: 50px;
   height: 50px;
-  border: 3px solid rgba(255,255,255,.3);
+  border: 3px solid var(--spinner-border-color);
   border-radius: 50%;
-  border-top-color: #fff;
+  border-top-color: var(--spinner-border-top-color);
   animation: spin 1s ease-in-out infinite;
-  -webkit-animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-  to { -webkit-transform: rotate(360deg); }
-}
-@-webkit-keyframes spin {
-  to { -webkit-transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-div.error {
+/* Error Styles */
+.error {
   display: flex;
   flex-grow: 1;
   flex-direction: column;
   align-items: center;
-  margin-top: 15px;
-  margin-bottom: 0;
+  margin: 15px 0 0;
   gap: 5px;
 }
 
-div.error p {
+.error p {
   margin: 0;
 }

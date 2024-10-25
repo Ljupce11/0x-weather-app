@@ -15,7 +15,7 @@ export type CurrentWeather = {
     min: string;
     max: string;
   };
-} | null;
+};
 
 export type HourlyForecast = {
   datetime: string;
@@ -38,7 +38,7 @@ export type DailyForecast = {
 export type Forecast = {
   hourly: HourlyForecast[];
   daily: DailyForecast[];
-} | null;
+};
 
 export type WeatherData = {
   current: {
@@ -56,3 +56,8 @@ export type WeatherData = {
     temperature_2m_max: number[];
   }
 }
+
+export type LocationCoordinates = {
+  latitude: number;
+  longitude: number;
+} | null
