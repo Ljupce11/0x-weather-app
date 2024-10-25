@@ -13,7 +13,7 @@ const SWR_OPTIONS = {
 
 export const useLocationAndWeatherData = (locationCoords: { latitude: number, longitude: number } | null, isOffline: boolean) => {
   const { data: locationData } = useSWR<LocationData>(getLocationURL(locationCoords, isOffline), fetcher, SWR_OPTIONS);
-  const { data: weatherData, isLoading } = useSWR<WeatherData>(getWeatherURL(locationCoords, isOffline), fetcher, SWR_OPTIONS);
+  const { data: weatherData, error: weatherError, isLoading } = useSWR<WeatherData>(getWeatherURL(locationCoords, isOffline), fetcher, SWR_OPTIONS);
 
   const isLoadingWeather = isOffline ? false : isLoading;
 
