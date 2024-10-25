@@ -5,8 +5,8 @@ import type { CurrentWeather, LocationData } from "../../types/types";
 import { getWeatherDescriptions } from "../../helpers/getWeatherDescriptions/getWeatherDescriptions";
 
 type Props = {
-  currentWeather: CurrentWeather;
-  locationData: LocationData;
+  currentWeather?: CurrentWeather;
+  locationData?: LocationData;
 }
 
 export const CurrentWeatherSection = ({ currentWeather, locationData }: Props) => {

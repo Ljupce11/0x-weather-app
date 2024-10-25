@@ -3,7 +3,7 @@ import type { Forecast } from "../../types/types";
 import { ErrorMessage } from "../shared/ErrorMessage";
 
 type Props = {
-  forecast: Forecast;
+  forecast?: Forecast;
 }
 
 export const HourlyForecastSection = ({ forecast }: Props) => {

@@ -4,7 +4,7 @@ import { ErrorMessage } from "../shared/ErrorMessage";
 import { formatDate } from "../../helpers/formatDate/formatDate";
 
 type Props = {
-  forecast: Forecast;
+  forecast?: Forecast;
 }
 
 export const DailyForecastSection = ({ forecast }: Props) => {
