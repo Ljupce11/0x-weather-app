@@ -1,5 +1,6 @@
 import { Rain } from "../../weather/Rain";
 import type { Forecast } from "../../types/types";
+import { ErrorIcon } from "../../weather/ErrorIcon";
 import { ErrorMessage } from "../shared/ErrorMessage";
 import { formatDate } from "../../helpers/formatDate/formatDate";
 
@@ -16,7 +17,13 @@ export const DailyForecastSection = ({ forecast }: Props) => {
           forecast ?
             forecast.daily?.map(({ datetime, range: { min, max }, newRange }) => (
               <div key={self.crypto.randomUUID()} className="daily-row">
-                <div className="daily-time">{formatDate(datetime)}</div>
+                <div className="daily-time">
+                  {
+                    formatDate(datetime) === 'invalidDate' ?
+                      <ErrorIcon msg="Invalid date" /> :
+                      formatDate(datetime)
+                  }
+                </div>
 
                 <div className="daily-conditions">
                   <Rain />
