@@ -10,5 +10,10 @@ export const formatDate = (dateString: string) => {
   }
   // Get the day of the week (Mon, Tue, ...)
   const options: Intl.DateTimeFormatOptions = { weekday: 'short' };
-  return new Intl.DateTimeFormat('en-US', options).format(inputDate);
+  try {
+    return new Intl.DateTimeFormat('en-US', options).format(inputDate);
+  }
+  catch (error) {
+    return 'invalidDate';
+  }
 }
