@@ -10,27 +10,29 @@ type Props = {
 
 export const DailyForecastSection = ({ forecast }: Props) => {
   return (
-    <div className="daily">
-      <div className="daily-title">7-DAY FORECAST</div>
+    <section className="daily" aria-labelledby="daily-forecast-title">
+      <header className="daily-title">
+        <p>7-DAY FORECAST</p>
+      </header>
       <div className="daily-list">
         {
           forecast ?
             forecast.daily?.map(({ datetime, range: { min, max }, newRange }) => (
-              <div key={self.crypto.randomUUID()} className="daily-row">
-                <div className="daily-time">
+              <article key={self.crypto.randomUUID()} className="daily-row">
+                <time className="daily-time" dateTime={datetime} aria-label={`Forecast for ${formatDate(datetime)}`}>
                   {
                     formatDate(datetime) === 'invalidDate' ?
                       <ErrorIcon msg="Invalid date" /> :
                       formatDate(datetime)
                   }
-                </div>
+                </time>
 
-                <div className="daily-conditions">
+                <div className="daily-conditions" aria-label="Rain probability">
                   <Rain />
-                  <span className="probability">60%</span>
+                  <span className="probability" aria-label="60 percent chance of rain">60%</span>
                 </div>
 
-                <div className="daily-range">
+                <div className="daily-range" aria-label={`Temperature range from ${min}° to ${max}°`}>
                   <span className="daily-min">{min}°</span>
                   <span className="range">
                     <span className="range-meter" style={{ left: `${newRange.min}%`, right: `${newRange.max}%` }} />
@@ -38,12 +40,12 @@ export const DailyForecastSection = ({ forecast }: Props) => {
                   </span>
                   <span className="daily-max">{max}°</span>
                 </div>
-              </div>
+              </article>
             ))
             :
             <ErrorMessage msg="Something went wrong" />
         }
       </div>
-    </div>
+    </section>
   )
 }

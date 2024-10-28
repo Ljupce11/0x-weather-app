@@ -15,7 +15,7 @@ export const App = () => {
   const { locationData, weatherData, isLoadingWeather } = useLocationAndWeatherData(locationCoords, isOffline);
 
   return (
-    <div>
+    <main>
       {
         isLoadingWeather ?
           <div className="spinner-wrapper">
@@ -31,6 +31,6 @@ export const App = () => {
       <Toaster
         position="bottom-center"
       />
-    </div>
+    </main>
   );
 };
