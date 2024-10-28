@@ -11,21 +11,24 @@ type Props = {
 
 export const CurrentWeatherSection = ({ currentWeather, locationData }: Props) => {
   return (
-    <div className="header">
+    <section className="header" aria-labelledby="current-weather">
       {
         currentWeather ?
           <Fragment>
-            <div className="location">{locationData?.address?.city || "Current location"}</div>
-            <div className="temp">{currentWeather.temp}</div>
-            <div className="conditions">
-              {getWeatherDescriptions([currentWeather.cond])}
-              <br />
-              H:{currentWeather.range.max} L:{currentWeather.range.min}
+            <h1 className="location">{locationData?.address?.city || "Current location"}</h1>
+            <p className="temp" aria-label={`Current temperature is ${currentWeather.temp} degrees`}>{currentWeather.temp}</p>
+            <div className="conditions" aria-live="polite">
+              <p aria-label="Current conditions">
+                {getWeatherDescriptions([currentWeather.cond])}
+              </p>
+              <p aria-label={`High ${currentWeather.range.max}, Low ${currentWeather.range.min}`}>
+                H:{currentWeather.range.max} L:{currentWeather.range.min}
+              </p>
             </div>
           </Fragment>
           :
           <ErrorMessage msg="Something went wrong" />
       }
-    </div>
+    </section>
   )
 }
